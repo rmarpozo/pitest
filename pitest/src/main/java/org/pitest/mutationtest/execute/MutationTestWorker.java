@@ -99,10 +99,13 @@ public class MutationTestWorker {
 
         final MutationStatusTestPair mutationDetected = handleMutation(mutationDetails, mutatedClass, relevantTests);
 
-        LOG.info("mutationDetected status " + mutationDetected.getStatus());
-
-        final String mutatedClassFilePath = new StringBuilder().append(System.getenv("MUTATION_DIR")).append(File.separatorChar).append(mutatedClass.getDetails().getId().getLocation().getClassName().getNameWithoutPackage().asJavaName()).append("_")
-                .append(mutatedClass.getDetails().getId().getLocation().getMethodName().name()).append("_").append(mutatedClass.getDetails().getId().getFirstIndex()).append(".class").toString();
+        final String mutatedClassFilePath = new StringBuilder()
+                .append(System.getenv("MUTATION_DIR")).append(File.separatorChar)
+                .append(mutatedClass.getDetails().getId().getLocation().getClassName().getNameWithoutPackage().asJavaName())
+                .append("_")
+                .append(mutatedClass.getDetails().getId().getLocation().getMethodName().name())
+                .append("_").append(mutatedClass.getDetails().getId().getFirstIndex())
+                .append(".class").toString().replace("$","_");
         if (DEBUG) {
             LOG.fine("writing mutated block to " + mutatedClassFilePath);
         }
